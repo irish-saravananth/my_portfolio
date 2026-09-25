@@ -1,0 +1,674 @@
+/* =========================================================
+   SPRINT 4 — DEVOPS TERMINAL
+   ========================================================= */
+
+.devops-terminal-section {
+  width: 100%;
+  padding: 90px 8%;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(
+      circle at 80% 40%,
+      rgba(125, 249, 167, 0.025),
+      transparent 34%
+    );
+}
+
+.devops-terminal-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.devops-terminal-heading h2 {
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(2.8rem, 5vw, 5.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+  font-weight: 800;
+}
+
+.terminal-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid rgba(125, 249, 167, 0.18);
+  border-radius: 5px;
+  color: #63798c;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.46rem;
+  letter-spacing: 0.08em;
+}
+
+.terminal-live-badge span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(125, 249, 167, 0.5);
+  animation: terminal-status-pulse 1.8s ease-in-out infinite;
+}
+
+.devops-terminal-intro {
+  max-width: 900px;
+  margin: 38px 0 55px;
+  color: #7890a6;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   DEVOPS CONSOLE
+   ========================================================= */
+
+.devops-console {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(125, 249, 167, 0.012),
+      transparent 45%
+    ),
+    #080b0c;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.18),
+    0 0 40px rgba(125, 249, 167, 0.018);
+}
+
+.devops-console-header {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.devops-console-window {
+  display: flex;
+  gap: 7px;
+}
+
+.devops-console-window span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3a444b;
+}
+
+.devops-console-title {
+  color: #64798b;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.55rem;
+}
+
+.devops-console-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  color: var(--accent);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.47rem;
+  letter-spacing: 0.08em;
+}
+
+.devops-console-body {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  min-height: 465px;
+}
+
+/* =========================================================
+   COMMAND LIST
+   ========================================================= */
+
+.terminal-command-list {
+  padding: 22px;
+  border-right: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.006);
+}
+
+.terminal-command-list-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #657b8e;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+}
+
+.terminal-command-button {
+  width: 100%;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 7px;
+  padding: 10px 11px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #607587;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.terminal-command-button:hover {
+  color: #9aabb9;
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.012);
+  transform: translateX(2px);
+}
+
+.terminal-command-button--active {
+  color: var(--accent);
+  border-color: rgba(125, 249, 167, 0.2);
+  background: rgba(125, 249, 167, 0.035);
+}
+
+.terminal-command-button svg {
+  flex: 0 0 auto;
+}
+
+.terminal-command-button span {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.terminal-command-button strong {
+  color: inherit;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.52rem;
+  font-weight: 600;
+}
+
+.terminal-command-button small {
+  overflow: hidden;
+  color: #4d6275;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.43rem;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.terminal-command-button--active small {
+  color: #63798c;
+}
+
+/* =========================================================
+   DEVOPS TERMINAL OUTPUT
+   IMPORTANT:
+   Uses .devops-terminal-output instead of .terminal-output
+   so it does NOT affect the original Hero terminal.
+   ========================================================= */
+
+.terminal-output-panel {
+  min-width: 0;
+  padding: 28px 30px;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+}
+
+.terminal-output-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-output-top > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.terminal-output-label {
+  color: #506577;
+  font-size: 0.44rem;
+  letter-spacing: 0.1em;
+}
+
+.terminal-output-top strong {
+  color: var(--text);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+  font-size: 0.78rem;
+}
+
+.terminal-operation-status {
+  padding: 6px 9px;
+  border: 1px solid rgba(125, 249, 167, 0.17);
+  border-radius: 4px;
+  color: var(--accent);
+  background: rgba(125, 249, 167, 0.025);
+  font-size: 0.44rem;
+  letter-spacing: 0.08em;
+}
+
+.terminal-command-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 25px;
+  color: var(--text);
+  font-size: 0.57rem;
+  line-height: 1.7;
+}
+
+.terminal-command-line > span:first-child {
+  color: var(--accent);
+}
+
+.terminal-running {
+  margin-left: auto;
+  color: #607688;
+  animation: terminal-running-pulse 700ms ease-in-out infinite;
+}
+
+.devops-terminal-output {
+  min-height: 250px;
+  margin-top: 19px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.18);
+  color: #687f92;
+  font-size: 0.53rem;
+  line-height: 2;
+  transition: opacity 180ms ease;
+}
+
+.devops-terminal-output--running {
+  opacity: 0.5;
+}
+
+.terminal-output-line {
+  white-space: pre-wrap;
+}
+
+.terminal-output-line--success {
+  color: var(--accent);
+}
+
+.terminal-output-line--accent {
+  color: #9aaebb;
+}
+
+.terminal-cursor-line {
+  display: flex;
+  gap: 9px;
+  margin-top: 17px;
+  color: var(--accent);
+  font-size: 0.56rem;
+}
+
+.terminal-cursor {
+  animation: terminal-cursor-blink 1s steps(2, start) infinite;
+}
+
+/* =========================================================
+   PLATFORM STATUS
+   ========================================================= */
+
+.devops-console-footer {
+  padding: 22px 25px;
+  border-top: 1px solid var(--border);
+}
+
+.console-footer-label {
+  margin-bottom: 17px;
+  color: #52687a;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+}
+
+.platform-status-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--border-soft);
+  border-left: 1px solid var(--border-soft);
+}
+
+.platform-status-item {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border-right: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.platform-status-indicator {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(125, 249, 167, 0.35);
+}
+
+.platform-status-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.platform-status-item small {
+  color: #526779;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.41rem;
+  letter-spacing: 0.07em;
+}
+
+.platform-status-item strong {
+  color: #91a3b2;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.47rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   CAPTION
+   ========================================================= */
+
+.devops-terminal-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #4e6375;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.09em;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes terminal-status-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes terminal-running-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes terminal-cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .devops-console-body {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .platform-status-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .devops-terminal-section {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+
+  .devops-terminal-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .devops-console-body {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-command-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 7px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .terminal-command-list-heading {
+    grid-column: 1 / -1;
+    margin-bottom: 2px;
+  }
+
+  .terminal-command-button {
+    min-height: 70px;
+    margin-bottom: 0;
+  }
+
+  .terminal-command-button small {
+    display: none;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .devops-terminal-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .devops-terminal-heading h2 {
+    font-size: clamp(2.6rem, 11vw, 4.5rem);
+  }
+
+  .devops-terminal-intro {
+    font-size: 0.78rem;
+  }
+
+  .devops-console-header {
+    padding: 0 14px;
+  }
+
+  .devops-console-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .devops-console-status {
+    display: none;
+  }
+
+  .terminal-command-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 14px;
+  }
+
+  .terminal-command-button {
+    min-height: 58px;
+    justify-content: center;
+    padding: 9px;
+  }
+
+  .terminal-command-button span {
+    display: none;
+  }
+
+  .terminal-command-list-heading {
+    margin-bottom: 8px;
+  }
+
+  .terminal-output-panel {
+    padding: 22px 18px;
+  }
+
+  .devops-terminal-output {
+    min-height: 235px;
+    padding: 15px;
+    font-size: 0.48rem;
+  }
+
+  .platform-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .platform-status-item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 450px
+   ========================================================= */
+
+@media (max-width: 450px) {
+  .terminal-command-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .terminal-command-button {
+    min-height: 48px;
+  }
+
+  .terminal-command-list-heading {
+    display: none;
+  }
+
+  .terminal-output-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .terminal-running {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .platform-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-status-item:last-child {
+    grid-column: auto;
+  }
+
+  .devops-terminal-caption {
+    line-height: 1.6;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-live-badge span,
+  .terminal-running,
+  .terminal-cursor {
+    animation: none;
+  }
+
+  .terminal-command-button,
+  .devops-terminal-output {
+    transition: none;
+  }
+}

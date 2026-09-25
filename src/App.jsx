@@ -12,6 +12,7 @@ import {
 
 import About from "./components/About";
 import DevOpsFlow from "./components/DevOpsFlow";
+import DevOpsTerminal from "./components/DevOpsTerminal";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import SectionTransition from "./components/SectionTransition";
@@ -35,6 +36,10 @@ const sections = [
     label: "WORKFLOW",
   },
   {
+    id: "terminal",
+    label: "TERMINAL",
+  },
+  {
     id: "skills",
     label: "SKILLS",
   },
@@ -55,55 +60,212 @@ const sections = [
 function App() {
   const [activeSection, setActiveSection] = useState("about");
 
-  useEffect(() => {
-    const sectionElements = sections
-      .map(({ id }) => document.getElementById(id))
-      .filter(Boolean);
+  /*
+   * ---------------------------------------------------------
+   * SECTION SCROLLING
+   * ---------------------------------------------------------
+   */
 
-    if (!sectionElements.length) {
-      return undefined;
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+
+    if (!element) {
+      return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (first, second) =>
-              second.intersectionRatio - first.intersectionRatio,
-          );
+    const navbar = document.querySelector(".navbar");
+    const navbarHeight = navbar?.offsetHeight ?? 74;
 
-        if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id);
+    const targetPosition =
+      element.getBoundingClientRect().top +
+      window.scrollY -
+      navbarHeight -
+      16;
+
+    window.scrollTo({
+      top: Math.max(targetPosition, 0),
+      behavior: "smooth",
+    });
+
+    window.history.replaceState(null, "", `#${sectionId}`);
+  };
+
+  /*
+   * ---------------------------------------------------------
+   * ACTIVE SECTION DETECTION
+   * ---------------------------------------------------------
+   *
+   * Using the section's position relative to the viewport is
+   * more reliable here than IntersectionObserver because the
+   * portfolio sections have animated wrappers.
+   */
+
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const navbar = document.querySelector(".navbar");
+      const navbarHeight = navbar?.offsetHeight ?? 74;
+
+      const activationLine = navbarHeight + 120;
+
+      let currentSection = sections[0].id;
+
+      sections.forEach(({ id }) => {
+        const element = document.getElementById(id);
+
+        if (!element) {
+          return;
         }
-      },
-      {
-        threshold: [0.15, 0.3, 0.5, 0.7],
-        rootMargin: "-12% 0px -35% 0px",
-      },
-    );
 
-    sectionElements.forEach((section) => observer.observe(section));
+        const elementTop =
+          element.getBoundingClientRect().top;
+
+        if (elementTop <= activationLine) {
+          currentSection = id;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    updateActiveSection();
+
+    window.addEventListener("scroll", updateActiveSection, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", updateActiveSection);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener(
+        "scroll",
+        updateActiveSection,
+      );
+
+      window.removeEventListener(
+        "resize",
+        updateActiveSection,
+      );
     };
   }, []);
+
+  /*
+   * ---------------------------------------------------------
+   * INITIAL HASH
+   * ---------------------------------------------------------
+   *
+   * If the page opens directly at:
+   *
+   * localhost:5173/#projects
+   *
+   * React may mount after the browser's native hash jump.
+   * We explicitly perform the scroll after rendering.
+   */
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+
+    if (!hash) {
+      return;
+    }
+
+    const isValidSection = sections.some(
+      ({ id }) => id === hash,
+    );
+
+    if (!isValidSection) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      scrollToSection(hash);
+    }, 120);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  /*
+   * ---------------------------------------------------------
+   * NAVIGATION HANDLER
+   * ---------------------------------------------------------
+   */
+
+  const handleSectionNavigation = (event, sectionId) => {
+    event.preventDefault();
+    scrollToSection(sectionId);
+  };
 
   return (
     <div className="app">
       <nav className="navbar">
         <div className="navbar-inner">
-          <a href="#home" className="nav-logo">
+          <a
+            href="#home"
+            className="nav-logo"
+            onClick={(event) => {
+              event.preventDefault();
+
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+
+              window.history.replaceState(
+                null,
+                "",
+                window.location.pathname,
+              );
+            }}
+          >
             STH
           </a>
 
           <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
+            <a
+              href="#about"
+              onClick={(event) =>
+                handleSectionNavigation(event, "about")
+              }
+            >
+              About
+            </a>
+
+            <a
+              href="#skills"
+              onClick={(event) =>
+                handleSectionNavigation(event, "skills")
+              }
+            >
+              Skills
+            </a>
+
+            <a
+              href="#projects"
+              onClick={(event) =>
+                handleSectionNavigation(event, "projects")
+              }
+            >
+              Projects
+            </a>
+
+            <a
+              href="#experience"
+              onClick={(event) =>
+                handleSectionNavigation(event, "experience")
+              }
+            >
+              Experience
+            </a>
+
+            <a
+              href="#contact"
+              onClick={(event) =>
+                handleSectionNavigation(event, "contact")
+              }
+            >
+              Contact
+            </a>
 
             <a
               href={githubUrl}
@@ -119,7 +281,9 @@ function App() {
       </nav>
 
       <main>
-        {/* HERO */}
+        {/* =====================================================
+            HERO
+        ===================================================== */}
 
         <section className="hero" id="home">
           <div className="hero-grid" />
@@ -139,13 +303,19 @@ function App() {
             </h1>
 
             <p className="hero-description">
-              Building automated, secure and reliable cloud-native platforms
-              through CI/CD, infrastructure as code, containerization and
-              continuous delivery.
+              Building automated, secure and reliable cloud-native
+              platforms through CI/CD, infrastructure as code,
+              containerization and continuous delivery.
             </p>
 
             <div className="hero-actions">
-              <a href="#projects" className="primary-button">
+              <a
+                href="#projects"
+                className="primary-button"
+                onClick={(event) =>
+                  handleSectionNavigation(event, "projects")
+                }
+              >
                 Explore Projects
                 <ArrowUpRight size={18} />
               </a>
@@ -190,6 +360,7 @@ function App() {
             </div>
           </div>
 
+          {/* Original Hero Terminal — intentionally kept simple */}
           <div className="terminal-card">
             <div className="terminal-header">
               <div className="terminal-dots">
@@ -206,7 +377,9 @@ function App() {
             <div className="terminal-body">
               <div className="terminal-line">
                 <span className="terminal-prompt">$</span>
-                <span className="terminal-command">whoami</span>
+                <span className="terminal-command">
+                  whoami
+                </span>
               </div>
 
               <div className="terminal-output">
@@ -221,7 +394,9 @@ function App() {
               </div>
 
               <div className="terminal-output">
-                <span className="terminal-success">●</span>{" "}
+                <span className="terminal-success">
+                  ●
+                </span>{" "}
                 application Running
               </div>
 
@@ -255,42 +430,65 @@ function App() {
             href="#about"
             className="scroll-indicator"
             aria-label="Scroll to About"
+            onClick={(event) =>
+              handleSectionNavigation(event, "about")
+            }
           >
             <ArrowDown size={17} />
           </a>
         </section>
 
-        {/* ABOUT */}
+        {/* =====================================================
+            ABOUT
+        ===================================================== */}
 
         <SectionTransition>
           <About />
         </SectionTransition>
 
-        {/* ENGINEERING WORKFLOW */}
+        {/* =====================================================
+            ENGINEERING WORKFLOW
+        ===================================================== */}
 
         <SectionTransition>
           <DevOpsFlow />
         </SectionTransition>
 
-        {/* TECHNOLOGY STACK */}
+        {/* =====================================================
+            DEVOPS TERMINAL
+        ===================================================== */}
+
+        <SectionTransition>
+          <DevOpsTerminal />
+        </SectionTransition>
+
+        {/* =====================================================
+            TECHNOLOGY STACK
+        ===================================================== */}
 
         <SectionTransition>
           <Skills />
         </SectionTransition>
 
-        {/* PROJECTS */}
+        {/* =====================================================
+            PROJECTS
+        ===================================================== */}
 
         <SectionTransition>
           <Projects />
         </SectionTransition>
 
-        {/* EXPERIENCE */}
+        {/* =====================================================
+            EXPERIENCE
+        ===================================================== */}
 
         <SectionTransition>
           <Experience />
         </SectionTransition>
 
-        {/* CONTACT */}
+        {/* =====================================================
+            CONTACT
+        ===================================================== */}
 
         <SectionTransition>
           <section className="contact-section" id="contact">
@@ -306,7 +504,8 @@ function App() {
 
                 <p className="contact-description">
                   Open to DevOps, DevSecOps and cloud engineering
-                  opportunities, projects and technical collaborations.
+                  opportunities, projects and technical
+                  collaborations.
                 </p>
 
                 <div className="contact-actions">
@@ -333,17 +532,23 @@ function App() {
 
               <div className="contact-terminal">
                 <div className="contact-terminal-line">
-                  <span className="contact-terminal-prompt">$</span>
+                  <span className="contact-terminal-prompt">
+                    $
+                  </span>
                   <strong>status</strong>
                 </div>
 
                 <div className="contact-terminal-line">
-                  <span className="contact-terminal-prompt">✓</span>
+                  <span className="contact-terminal-prompt">
+                    ✓
+                  </span>
                   Open to opportunities
                 </div>
 
                 <div className="contact-terminal-line">
-                  <span className="contact-terminal-prompt">$</span>
+                  <span className="contact-terminal-prompt">
+                    $
+                  </span>
                   <strong>focus</strong>
                 </div>
 
@@ -353,7 +558,9 @@ function App() {
                 </div>
 
                 <div className="contact-terminal-line">
-                  <span className="contact-terminal-prompt">$</span>
+                  <span className="contact-terminal-prompt">
+                    $
+                  </span>
                   <strong>stack</strong>
                 </div>
 
@@ -363,7 +570,9 @@ function App() {
                 </div>
 
                 <div className="contact-terminal-line">
-                  <span className="contact-terminal-prompt">$</span>
+                  <span className="contact-terminal-prompt">
+                    $
+                  </span>
                   <strong>email</strong>
                 </div>
 
@@ -428,7 +637,14 @@ function App() {
         </SectionTransition>
       </main>
 
-      <div className="section-progress" aria-label="Section navigation">
+      {/* =======================================================
+          SECTION PROGRESS NAVIGATION
+      ======================================================= */}
+
+      <div
+        className="section-progress"
+        aria-label="Section navigation"
+      >
         {sections.map(({ id, label }) => (
           <a
             key={id}
@@ -440,8 +656,13 @@ function App() {
             }
             aria-label={`Go to ${label}`}
             title={label}
+            onClick={(event) =>
+              handleSectionNavigation(event, id)
+            }
           >
-            <span className="section-progress-label">{label}</span>
+            <span className="section-progress-label">
+              {label}
+            </span>
           </a>
         ))}
       </div>
