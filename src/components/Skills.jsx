@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import {
   Activity,
   Cloud,
@@ -8,11 +9,12 @@ import {
   Search,
   Server,
   ShieldCheck,
-  Workflow,
 } from "lucide-react";
+import "./Skills.css";
 
 const primaryGroups = [
   {
+    category: "CLOUD",
     icon: Cloud,
     title: "Cloud & Infrastructure",
     description: "Cloud platforms, networking and infrastructure services",
@@ -28,6 +30,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "DELIVERY",
     icon: GitBranch,
     title: "CI/CD & Source Control",
     description: "Automated software delivery and version control",
@@ -41,6 +44,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "PLATFORM",
     icon: Container,
     title: "Containers & Kubernetes",
     description: "Containerized workloads and cloud-native platforms",
@@ -55,6 +59,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "AUTOMATION",
     icon: Layers3,
     title: "Infrastructure as Code",
     description: "Repeatable infrastructure and configuration automation",
@@ -68,6 +73,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "SECURITY",
     icon: ShieldCheck,
     title: "DevSecOps & Security",
     description: "Security and quality controls integrated into delivery",
@@ -81,6 +87,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "OBSERVABILITY",
     icon: Activity,
     title: "Observability",
     description: "Monitoring, metrics and operational visibility",
@@ -94,6 +101,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "AUTOMATION",
     icon: Code2,
     title: "Scripting & Automation",
     description: "Automation across infrastructure and delivery workflows",
@@ -107,6 +115,7 @@ const primaryGroups = [
     ],
   },
   {
+    category: "PLATFORM",
     icon: Server,
     title: "GitOps & Platform Engineering",
     description: "Application deployment and platform operations",
@@ -121,142 +130,284 @@ const primaryGroups = [
   },
 ];
 
-const socGroups = [
+const securityGroups = [
   {
     icon: ShieldCheck,
     title: "Microsoft Sentinel Engineering",
     description:
-      "SIEM engineering, detection development and security telemetry onboarding",
+      "SIEM engineering across Microsoft Sentinel with telemetry integration and detection workflows.",
     skills: [
       "Microsoft Sentinel",
       "KQL",
-      "Analytics Rules",
+      "Analytical Rules",
+      "Log Analytics",
       "Data Connectors",
       "Log Normalization",
-      "Log Parsing",
     ],
   },
   {
     icon: Cloud,
     title: "Defender XDR Integration",
     description:
-      "Integrating Microsoft Defender security telemetry and capabilities with Sentinel",
+      "Security telemetry integration across Microsoft Defender XDR and Sentinel.",
     skills: [
       "Microsoft Defender XDR",
-      "Defender Suite",
+      "Defender for Endpoint",
+      "Defender for Identity",
+      "Defender for Office 365",
       "Sentinel Integration",
       "Security Telemetry",
-      "Alert Correlation",
-      "Data Connectors",
     ],
   },
   {
     icon: Server,
     title: "Wazuh SOC Engineering",
     description:
-      "Building and configuring Wazuh environments for centralized security monitoring",
+      "SOC platform setup, agent integration, log collection and analytical rule engineering.",
     skills: [
       "Wazuh",
-      "SOC Setup",
-      "Agent Deployment",
+      "SIEM Deployment",
+      "Agent Integration",
       "Log Collection",
       "Log Parsing",
-      "Custom Detection Rules",
+      "Analytical Rules",
     ],
   },
   {
     icon: Search,
     title: "Detection Engineering & Threat Hunting",
     description:
-      "Developing and tuning detections using requirements, threat intelligence and hunting findings",
+      "Detection development and tuning driven by threat intelligence and hunting requirements.",
     skills: [
       "Detection Engineering",
-      "Rule Tuning",
-      "False-Positive Reduction",
       "Threat Hunting",
       "Threat Intelligence",
+      "Analytical Rule Tuning",
+      "False Positive Reduction",
       "MITRE ATT&CK",
     ],
   },
   {
-    icon: Workflow,
+    icon: Activity,
     title: "Security Automation & Response",
     description:
-      "Automating known alert response actions and reducing repetitive manual investigation",
+      "Investigation workflows and automated response for known security alerts and actions.",
     skills: [
+      "Security Automation",
       "Automated Response",
       "Known Alert Actions",
-      "Alert Enrichment",
-      "Response Workflows",
-      "Security Automation",
       "Incident Response",
+      "Security Event Analysis",
+      "Investigation Workflows",
     ],
   },
 ];
 
-function SkillCard({ icon: Icon, title, description, skills }) {
+const filters = [
+  "ALL",
+  "CLOUD",
+  "DELIVERY",
+  "PLATFORM",
+  "SECURITY",
+  "OBSERVABILITY",
+  "AUTOMATION",
+];
+
+function SkillCard({
+  icon: Icon,
+  title,
+  description,
+  skills,
+  category,
+  isSelected,
+  onSelect,
+}) {
   return (
-    <article className="skill-card">
-      <div className="skill-card-top">
-        <div className="skill-icon">
-          <Icon size={21} />
+    <button
+      type="button"
+      className={[
+        "interactive-skill-card",
+        isSelected ? "interactive-skill-card--selected" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      onClick={onSelect}
+      aria-pressed={isSelected}
+    >
+      <div className="interactive-skill-card-top">
+        <div className="interactive-skill-icon">
+          <Icon size={21} strokeWidth={1.8} />
         </div>
+
+        <span className="interactive-skill-count">
+          {String(skills.length).padStart(2, "0")}
+        </span>
+      </div>
+
+      <div className="interactive-skill-meta">
+        <span>{category}</span>
+        <span>CAPABILITY</span>
       </div>
 
       <h3>{title}</h3>
 
-      <p className="skill-description">{description}</p>
+      <p>{description}</p>
 
-      <div className="skill-tags">
+      <div className="interactive-skill-tags">
         {skills.map((skill) => (
           <span key={skill}>{skill}</span>
         ))}
       </div>
-    </article>
+
+      <div className="interactive-skill-footer">
+        <span>{isSelected ? "SELECTED" : "INSPECT"}</span>
+        <span className="interactive-skill-arrow">↗</span>
+      </div>
+    </button>
   );
 }
 
 function Skills() {
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const filteredGroups = useMemo(() => {
+    if (activeFilter === "ALL") {
+      return primaryGroups;
+    }
+
+    return primaryGroups.filter(
+      (group) => group.category === activeFilter,
+    );
+  }, [activeFilter]);
+
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    setSelectedCard(null);
+  };
+
   return (
     <section className="skills-section" id="skills">
       <div className="section-heading">
         <div>
           <p className="section-kicker">TECHNOLOGY STACK</p>
+
           <h2>The tools behind the delivery.</h2>
         </div>
       </div>
 
       <p className="skills-intro">
         A DevOps-focused engineering stack spanning cloud infrastructure,
-        CI/CD, Kubernetes, infrastructure as code, DevSecOps and observability.
+        CI/CD, Kubernetes, infrastructure as code, DevSecOps and
+        observability.
       </p>
 
-      <div className="stack-label">
-        <span className="stack-line" />
-        PRIMARY — DEVOPS / DEVSECOPS
+      <div className="interactive-stack-header">
+        <div className="stack-label">
+          <span className="stack-line" />
+          PRIMARY — DEVOPS / DEVSECOPS
+        </div>
+
+        <span className="interactive-stack-count">
+          {String(filteredGroups.length).padStart(2, "0")} CAPABILITIES
+        </span>
       </div>
 
-      <div className="skills-grid">
-        {primaryGroups.map((group) => (
-          <SkillCard key={group.title} {...group} />
+      <div className="skill-filter-bar" aria-label="Technology filters">
+        {filters.map((filter) => (
+          <button
+            type="button"
+            key={filter}
+            className={
+              activeFilter === filter
+                ? "skill-filter skill-filter--active"
+                : "skill-filter"
+            }
+            onClick={() => handleFilterChange(filter)}
+          >
+            {filter}
+          </button>
         ))}
       </div>
 
-      <div className="stack-label secondary-stack-label">
-        <span className="stack-line" />
-        SECONDARY — SOC ENGINEERING
+      <div className="interactive-skills-grid">
+        {filteredGroups.map((group) => (
+          <SkillCard
+            key={group.title}
+            {...group}
+            isSelected={selectedCard === group.title}
+            onSelect={() =>
+              setSelectedCard((current) =>
+                current === group.title ? null : group.title,
+              )
+            }
+          />
+        ))}
       </div>
 
-      <p className="skills-intro secondary-skills-intro">
-        Security operations engineering experience spanning SIEM implementation,
-        detection engineering, log onboarding, threat hunting and automated
-        response workflows.
-      </p>
+      <div className="skills-selection-status" aria-live="polite">
+        <span className="skills-selection-dot" />
 
-      <div className="skills-grid secondary-skills-grid">
-        {socGroups.map((group) => (
-          <SkillCard key={group.title} {...group} />
-        ))}
+        <span>
+          {selectedCard
+            ? `INSPECTING — ${selectedCard.toUpperCase()}`
+            : "SELECT A CAPABILITY TO INSPECT"}
+        </span>
+      </div>
+
+      <div className="secondary-security">
+        <div className="secondary-heading">
+          <div>
+            <p className="section-kicker">SECONDARY EXPERIENCE</p>
+
+            <h3>Security Operations &amp; SOC</h3>
+          </div>
+
+          <span className="secondary-label">
+            SECURITY BACKGROUND
+          </span>
+        </div>
+
+        <p className="secondary-description">
+          Security operations experience that complements my DevOps
+          and DevSecOps engineering background, with experience across
+          SIEM platforms, endpoint security, log engineering, incident
+          response, threat detection and security automation workflows.
+        </p>
+
+        <div className="secondary-security-grid">
+          {securityGroups.map(
+            ({
+              icon: Icon,
+              title,
+              description,
+              skills,
+            }) => (
+              <article
+                className="secondary-security-card"
+                key={title}
+              >
+                <div className="secondary-security-icon">
+                  <Icon size={19} strokeWidth={1.8} />
+                </div>
+
+                <span className="secondary-security-count">
+                  {String(skills.length).padStart(2, "0")}
+                </span>
+
+                <h4>{title}</h4>
+
+                <p>{description}</p>
+
+                <div className="secondary-security-tags">
+                  {skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </article>
+            ),
+          )}
+        </div>
       </div>
     </section>
   );
