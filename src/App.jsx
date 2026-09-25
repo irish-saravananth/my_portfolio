@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import "./about-layout.css";
+import "./components/Sprint5Motion.css";
 
 import {
   ArrowDown,
@@ -22,6 +23,8 @@ const githubUrl = "https://github.com/irish-saravananth";
 
 const linkedinUrl =
   "https://www.linkedin.com/in/saravanan-t-h-b82130213";
+
+const emailAddress = "saravananth2401@gmail.com";
 
 const emailUrl =
   "https://mail.google.com/mail/?view=cm&fs=1&to=saravananth2401@gmail.com";
@@ -87,17 +90,17 @@ function App() {
       behavior: "smooth",
     });
 
-    window.history.replaceState(null, "", `#${sectionId}`);
+    window.history.replaceState(
+      null,
+      "",
+      `#${sectionId}`,
+    );
   };
 
   /*
    * ---------------------------------------------------------
    * ACTIVE SECTION DETECTION
    * ---------------------------------------------------------
-   *
-   * Using the section's position relative to the viewport is
-   * more reliable here than IntersectionObserver because the
-   * portfolio sections have animated wrappers.
    */
 
   useEffect(() => {
@@ -129,11 +132,18 @@ function App() {
 
     updateActiveSection();
 
-    window.addEventListener("scroll", updateActiveSection, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      updateActiveSection,
+      {
+        passive: true,
+      },
+    );
 
-    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener(
+      "resize",
+      updateActiveSection,
+    );
 
     return () => {
       window.removeEventListener(
@@ -150,19 +160,15 @@ function App() {
 
   /*
    * ---------------------------------------------------------
-   * INITIAL HASH
+   * INITIAL HASH NAVIGATION
    * ---------------------------------------------------------
-   *
-   * If the page opens directly at:
-   *
-   * localhost:5173/#projects
-   *
-   * React may mount after the browser's native hash jump.
-   * We explicitly perform the scroll after rendering.
    */
 
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
+    const hash = window.location.hash.replace(
+      "#",
+      "",
+    );
 
     if (!hash) {
       return;
@@ -191,13 +197,20 @@ function App() {
    * ---------------------------------------------------------
    */
 
-  const handleSectionNavigation = (event, sectionId) => {
+  const handleSectionNavigation = (
+    event,
+    sectionId,
+  ) => {
     event.preventDefault();
     scrollToSection(sectionId);
   };
 
   return (
     <div className="app">
+      {/* =====================================================
+          NAVIGATION
+      ===================================================== */}
+
       <nav className="navbar">
         <div className="navbar-inner">
           <a
@@ -225,7 +238,10 @@ function App() {
             <a
               href="#about"
               onClick={(event) =>
-                handleSectionNavigation(event, "about")
+                handleSectionNavigation(
+                  event,
+                  "about",
+                )
               }
             >
               About
@@ -234,7 +250,10 @@ function App() {
             <a
               href="#skills"
               onClick={(event) =>
-                handleSectionNavigation(event, "skills")
+                handleSectionNavigation(
+                  event,
+                  "skills",
+                )
               }
             >
               Skills
@@ -243,7 +262,10 @@ function App() {
             <a
               href="#projects"
               onClick={(event) =>
-                handleSectionNavigation(event, "projects")
+                handleSectionNavigation(
+                  event,
+                  "projects",
+                )
               }
             >
               Projects
@@ -252,7 +274,10 @@ function App() {
             <a
               href="#experience"
               onClick={(event) =>
-                handleSectionNavigation(event, "experience")
+                handleSectionNavigation(
+                  event,
+                  "experience",
+                )
               }
             >
               Experience
@@ -261,7 +286,10 @@ function App() {
             <a
               href="#contact"
               onClick={(event) =>
-                handleSectionNavigation(event, "contact")
+                handleSectionNavigation(
+                  event,
+                  "contact",
+                )
               }
             >
               Contact
@@ -285,7 +313,10 @@ function App() {
             HERO
         ===================================================== */}
 
-        <section className="hero" id="home">
+        <section
+          className="hero"
+          id="home"
+        >
           <div className="hero-grid" />
 
           <div className="hero-content">
@@ -303,9 +334,10 @@ function App() {
             </h1>
 
             <p className="hero-description">
-              Building automated, secure and reliable cloud-native
-              platforms through CI/CD, infrastructure as code,
-              containerization and continuous delivery.
+              Building automated, secure and reliable
+              cloud-native platforms through CI/CD,
+              infrastructure as code, containerization
+              and continuous delivery.
             </p>
 
             <div className="hero-actions">
@@ -313,7 +345,10 @@ function App() {
                 href="#projects"
                 className="primary-button"
                 onClick={(event) =>
-                  handleSectionNavigation(event, "projects")
+                  handleSectionNavigation(
+                    event,
+                    "projects",
+                  )
                 }
               >
                 Explore Projects
@@ -360,7 +395,8 @@ function App() {
             </div>
           </div>
 
-          {/* Original Hero Terminal — intentionally kept simple */}
+          {/* Original Hero Terminal */}
+
           <div className="terminal-card">
             <div className="terminal-header">
               <div className="terminal-dots">
@@ -376,7 +412,10 @@ function App() {
 
             <div className="terminal-body">
               <div className="terminal-line">
-                <span className="terminal-prompt">$</span>
+                <span className="terminal-prompt">
+                  $
+                </span>
+
                 <span className="terminal-command">
                   whoami
                 </span>
@@ -387,7 +426,10 @@ function App() {
               </div>
 
               <div className="terminal-line">
-                <span className="terminal-prompt">$</span>
+                <span className="terminal-prompt">
+                  $
+                </span>
+
                 <span className="terminal-command">
                   kubectl get pods
                 </span>
@@ -401,18 +443,25 @@ function App() {
               </div>
 
               <div className="terminal-line">
-                <span className="terminal-prompt">$</span>
+                <span className="terminal-prompt">
+                  $
+                </span>
+
                 <span className="terminal-command">
                   terraform apply
                 </span>
               </div>
 
               <div className="terminal-output">
-                Infrastructure successfully provisioned
+                Infrastructure successfully
+                provisioned
               </div>
 
               <div className="terminal-line">
-                <span className="terminal-prompt">$</span>
+                <span className="terminal-prompt">
+                  $
+                </span>
+
                 <span className="terminal-command">
                   pipeline status
                 </span>
@@ -422,7 +471,9 @@ function App() {
                 ✓ Build → Scan → Deploy
               </div>
 
-              <div className="terminal-muted">_</div>
+              <div className="terminal-muted">
+                _
+              </div>
             </div>
           </div>
 
@@ -431,7 +482,10 @@ function App() {
             className="scroll-indicator"
             aria-label="Scroll to About"
             onClick={(event) =>
-              handleSectionNavigation(event, "about")
+              handleSectionNavigation(
+                event,
+                "about",
+              )
             }
           >
             <ArrowDown size={17} />
@@ -491,10 +545,15 @@ function App() {
         ===================================================== */}
 
         <SectionTransition>
-          <section className="contact-section" id="contact">
+          <section
+            className="contact-section"
+            id="contact"
+          >
             <div className="contact-grid">
               <div className="contact-heading">
-                <p className="section-kicker">CONTACT</p>
+                <p className="section-kicker">
+                  CONTACT
+                </p>
 
                 <h2>
                   Let's build something
@@ -503,12 +562,14 @@ function App() {
                 </h2>
 
                 <p className="contact-description">
-                  Open to DevOps, DevSecOps and cloud engineering
-                  opportunities, projects and technical
-                  collaborations.
+                  Open to DevOps, DevSecOps and cloud
+                  engineering opportunities, projects
+                  and technical collaborations.
                 </p>
 
                 <div className="contact-actions">
+                  {/* REAL EMAIL ACTION */}
+
                   <a
                     href={emailUrl}
                     target="_blank"
@@ -530,11 +591,16 @@ function App() {
                 </div>
               </div>
 
+              {/* =================================================
+                  CONTACT TERMINAL
+              ================================================= */}
+
               <div className="contact-terminal">
                 <div className="contact-terminal-line">
                   <span className="contact-terminal-prompt">
                     $
                   </span>
+
                   <strong>status</strong>
                 </div>
 
@@ -542,6 +608,7 @@ function App() {
                   <span className="contact-terminal-prompt">
                     ✓
                   </span>
+
                   Open to opportunities
                 </div>
 
@@ -549,23 +616,27 @@ function App() {
                   <span className="contact-terminal-prompt">
                     $
                   </span>
+
                   <strong>focus</strong>
                 </div>
 
                 <div className="contact-terminal-line">
                   <span />
-                  DevOps · DevSecOps · Cloud
+
+                  DevOps · DevSecOps · Platform Engineering · Cloud
                 </div>
 
                 <div className="contact-terminal-line">
                   <span className="contact-terminal-prompt">
                     $
                   </span>
+
                   <strong>stack</strong>
                 </div>
 
                 <div className="contact-terminal-line">
                   <span />
+
                   Azure · AWS · Kubernetes · Terraform
                 </div>
 
@@ -573,6 +644,7 @@ function App() {
                   <span className="contact-terminal-prompt">
                     $
                   </span>
+
                   <strong>email</strong>
                 </div>
 
@@ -584,7 +656,7 @@ function App() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    saravananth2401@gmail.com
+                    {emailAddress}
                   </a>
                 </div>
               </div>
@@ -623,7 +695,9 @@ function App() {
             </div>
 
             <footer className="footer">
-              <div className="footer-logo">STH</div>
+              <div className="footer-logo">
+                STH
+              </div>
 
               <div className="footer-role">
                 DEVOPS / DEVSECOPS ENGINEER
@@ -638,7 +712,7 @@ function App() {
       </main>
 
       {/* =======================================================
-          SECTION PROGRESS NAVIGATION
+          SECTION PROGRESS
       ======================================================= */}
 
       <div
@@ -657,7 +731,10 @@ function App() {
             aria-label={`Go to ${label}`}
             title={label}
             onClick={(event) =>
-              handleSectionNavigation(event, id)
+              handleSectionNavigation(
+                event,
+                id,
+              )
             }
           >
             <span className="section-progress-label">
