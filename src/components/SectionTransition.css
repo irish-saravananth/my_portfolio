@@ -1,0 +1,101 @@
+.section-transition {
+  position: relative;
+  opacity: 0;
+  transform: translate3d(0, 42px, 0) scale(0.975);
+  transform-origin: center top;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.section-transition--up {
+  transform: translate3d(0, -42px, 0) scale(0.975);
+}
+
+.section-transition--down {
+  transform: translate3d(0, 42px, 0) scale(0.975);
+}
+
+.section-transition--visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.section-transition--visible::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(92%, 1320px);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(125, 249, 167, 0.18),
+    transparent
+  );
+  pointer-events: none;
+  opacity: 0;
+  animation: section-transition-line 900ms ease forwards;
+}
+
+/* Keep anchor targets below the sticky navbar. */
+.section-transition > #about,
+.section-transition > #workflow,
+.section-transition > #skills,
+.section-transition > #projects,
+.section-transition > #experience,
+.section-transition > #contact {
+  scroll-margin-top: 90px;
+}
+
+@keyframes section-transition-line {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0.45);
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-transition,
+  .section-transition--up,
+  .section-transition--down {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .section-transition--visible::before {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .section-transition {
+    transform: translate3d(0, 26px, 0) scale(0.985);
+    transition-duration: 600ms;
+  }
+
+  .section-transition--up {
+    transform: translate3d(0, -26px, 0) scale(0.985);
+  }
+
+  .section-transition--down {
+    transform: translate3d(0, 26px, 0) scale(0.985);
+  }
+
+  .section-transition--visible {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}

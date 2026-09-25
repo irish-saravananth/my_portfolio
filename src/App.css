@@ -60,7 +60,7 @@ a {
 
 #root {
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .app {
@@ -1578,5 +1578,94 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
+  }
+}
+
+/* =========================================================
+   SPRINT 1 — SCROLL SECTION PROGRESS
+   ========================================================= */
+
+.section-progress {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+  transform: translateY(-50%);
+}
+
+.section-progress-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  display: block;
+  border: 1px solid rgba(125, 249, 167, 0.42);
+  border-radius: 50%;
+  background: rgba(125, 249, 167, 0.08);
+  transition:
+    width 220ms ease,
+    height 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.section-progress-dot:hover {
+  transform: scale(1.35);
+  background: rgba(125, 249, 167, 0.35);
+  border-color: var(--accent);
+}
+
+.section-progress-dot--active {
+  width: 9px;
+  height: 9px;
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 14px rgba(125, 249, 167, 0.42);
+}
+
+.section-progress-label {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: rgba(7, 9, 10, 0.94);
+  color: #8ca3b8;
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(5px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.section-progress-dot:hover .section-progress-label,
+.section-progress-dot--active .section-progress-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 900px) {
+  .section-progress {
+    right: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .section-progress {
+    display: none;
   }
 }

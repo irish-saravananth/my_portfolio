@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import "./about-layout.css";
 
@@ -13,6 +14,7 @@ import About from "./components/About";
 import DevOpsFlow from "./components/DevOpsFlow";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import SectionTransition from "./components/SectionTransition";
 import Skills from "./components/Skills";
 
 const githubUrl = "https://github.com/irish-saravananth";
@@ -23,7 +25,71 @@ const linkedinUrl =
 const emailUrl =
   "https://mail.google.com/mail/?view=cm&fs=1&to=saravananth2401@gmail.com";
 
+const sections = [
+  {
+    id: "about",
+    label: "ABOUT",
+  },
+  {
+    id: "workflow",
+    label: "WORKFLOW",
+  },
+  {
+    id: "skills",
+    label: "SKILLS",
+  },
+  {
+    id: "projects",
+    label: "PROJECTS",
+  },
+  {
+    id: "experience",
+    label: "EXPERIENCE",
+  },
+  {
+    id: "contact",
+    label: "CONTACT",
+  },
+];
+
 function App() {
+  const [activeSection, setActiveSection] = useState("about");
+
+  useEffect(() => {
+    const sectionElements = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sectionElements.length) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio,
+          );
+
+        if (visibleSections.length > 0) {
+          setActiveSection(visibleSections[0].target.id);
+        }
+      },
+      {
+        threshold: [0.15, 0.3, 0.5, 0.7],
+        rootMargin: "-12% 0px -35% 0px",
+      },
+    );
+
+    sectionElements.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="app">
       <nav className="navbar">
@@ -194,150 +260,191 @@ function App() {
           </a>
         </section>
 
-        <About />
+        {/* ABOUT */}
 
-        <DevOpsFlow />
+        <SectionTransition>
+          <About />
+        </SectionTransition>
 
-        <Skills />
+        {/* ENGINEERING WORKFLOW */}
 
-        <Projects />
+        <SectionTransition>
+          <DevOpsFlow />
+        </SectionTransition>
 
-        <Experience />
+        {/* TECHNOLOGY STACK */}
+
+        <SectionTransition>
+          <Skills />
+        </SectionTransition>
+
+        {/* PROJECTS */}
+
+        <SectionTransition>
+          <Projects />
+        </SectionTransition>
+
+        {/* EXPERIENCE */}
+
+        <SectionTransition>
+          <Experience />
+        </SectionTransition>
 
         {/* CONTACT */}
 
-        <section className="contact-section" id="contact">
-          <div className="contact-grid">
-            <div className="contact-heading">
-              <p className="section-kicker">CONTACT</p>
+        <SectionTransition>
+          <section className="contact-section" id="contact">
+            <div className="contact-grid">
+              <div className="contact-heading">
+                <p className="section-kicker">CONTACT</p>
 
-              <h2>
-                Let's build something
-                <br />
-                reliable.
-              </h2>
+                <h2>
+                  Let's build something
+                  <br />
+                  reliable.
+                </h2>
 
-              <p className="contact-description">
-                Open to DevOps, DevSecOps and cloud engineering opportunities,
-                projects and technical collaborations.
-              </p>
+                <p className="contact-description">
+                  Open to DevOps, DevSecOps and cloud engineering
+                  opportunities, projects and technical collaborations.
+                </p>
 
-              <div className="contact-actions">
-                <a
-                  href={emailUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="primary-button"
-                >
-                  Get in touch
-                  <ArrowUpRight size={18} />
-                </a>
+                <div className="contact-actions">
+                  <a
+                    href={emailUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="primary-button"
+                  >
+                    Get in touch
+                    <ArrowUpRight size={18} />
+                  </a>
 
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="secondary-button"
-                >
-                  View Resume
-                </a>
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="secondary-button"
+                  >
+                    View Resume
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact-terminal">
+                <div className="contact-terminal-line">
+                  <span className="contact-terminal-prompt">$</span>
+                  <strong>status</strong>
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span className="contact-terminal-prompt">✓</span>
+                  Open to opportunities
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span className="contact-terminal-prompt">$</span>
+                  <strong>focus</strong>
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span />
+                  DevOps · DevSecOps · Cloud
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span className="contact-terminal-prompt">$</span>
+                  <strong>stack</strong>
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span />
+                  Azure · AWS · Kubernetes · Terraform
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span className="contact-terminal-prompt">$</span>
+                  <strong>email</strong>
+                </div>
+
+                <div className="contact-terminal-line">
+                  <span />
+
+                  <a
+                    href={emailUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    saravananth2401@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div className="contact-terminal">
-              <div className="contact-terminal-line">
-                <span className="contact-terminal-prompt">$</span>
-                <strong>status</strong>
-              </div>
+            <div className="contact-links">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="contact-link"
+              >
+                GitHub
+                <ArrowUpRight size={14} />
+              </a>
 
-              <div className="contact-terminal-line">
-                <span className="contact-terminal-prompt">✓</span>
-                Open to opportunities
-              </div>
+              <a
+                href={linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="contact-link"
+              >
+                LinkedIn
+                <ArrowUpRight size={14} />
+              </a>
 
-              <div className="contact-terminal-line">
-                <span className="contact-terminal-prompt">$</span>
-                <strong>focus</strong>
-              </div>
-
-              <div className="contact-terminal-line">
-                <span />
-                DevOps · DevSecOps · Cloud
-              </div>
-
-              <div className="contact-terminal-line">
-                <span className="contact-terminal-prompt">$</span>
-                <strong>stack</strong>
-              </div>
-
-              <div className="contact-terminal-line">
-                <span />
-                Azure · AWS · Kubernetes · Terraform
-              </div>
-
-              <div className="contact-terminal-line">
-                <span className="contact-terminal-prompt">$</span>
-                <strong>email</strong>
-              </div>
-
-              <div className="contact-terminal-line">
-                <span />
-                <a
-                  href={emailUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  saravananth2401@gmail.com
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="contact-links">
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="contact-link"
-            >
-              GitHub
-              <ArrowUpRight size={14} />
-            </a>
-
-            <a
-              href={linkedinUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="contact-link"
-            >
-              LinkedIn
-              <ArrowUpRight size={14} />
-            </a>
-
-            <a
-              href={emailUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="contact-link"
-            >
-              Email
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
-
-          <footer className="footer">
-            <div className="footer-logo">STH</div>
-
-            <div className="footer-role">
-              DEVOPS / DEVSECOPS ENGINEER
+              <a
+                href={emailUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="contact-link"
+              >
+                Email
+                <ArrowUpRight size={14} />
+              </a>
             </div>
 
-            <div className="footer-tagline">
-              BUILD · AUTOMATE · SECURE · DEPLOY
-            </div>
-          </footer>
-        </section>
+            <footer className="footer">
+              <div className="footer-logo">STH</div>
+
+              <div className="footer-role">
+                DEVOPS / DEVSECOPS ENGINEER
+              </div>
+
+              <div className="footer-tagline">
+                BUILD · AUTOMATE · SECURE · DEPLOY
+              </div>
+            </footer>
+          </section>
+        </SectionTransition>
       </main>
+
+      <div className="section-progress" aria-label="Section navigation">
+        {sections.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={
+              activeSection === id
+                ? "section-progress-dot section-progress-dot--active"
+                : "section-progress-dot"
+            }
+            aria-label={`Go to ${label}`}
+            title={label}
+          >
+            <span className="section-progress-label">{label}</span>
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
