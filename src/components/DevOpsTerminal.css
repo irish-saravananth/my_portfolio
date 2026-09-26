@@ -672,3 +672,86 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   DEVOPS TERMINAL CONTRAST AND FONT FIXES
+   ========================================================= */
+
+.devops-console {
+  background: #090d0f !important;
+  color: #e4ece7 !important;
+  border-color: #34413c !important;
+}
+
+.devops-console-header,
+.devops-console-footer {
+  background: #111719 !important;
+  border-color: #34413c !important;
+}
+
+.terminal-command-list {
+  background: #0c1113 !important;
+  border-color: #34413c !important;
+}
+
+.terminal-output-panel {
+  background: #090d0f !important;
+  color: #dce7e1 !important;
+}
+
+.devops-terminal-output {
+  background: #0e1517 !important;
+  border-color: #34413c !important;
+  color: #b1c1cb !important;
+  font-size: 0.85rem !important;
+  line-height: 1.9 !important;
+}
+
+.devops-console-title,
+.terminal-command-list-heading,
+.terminal-output-label,
+.terminal-running {
+  color: #9aafbf !important;
+}
+
+.terminal-command-button {
+  color: #c2d0d7 !important;
+}
+
+.terminal-command-button strong {
+  font-size: 0.92rem !important;
+}
+
+.terminal-command-button small {
+  font-size: 0.78rem !important;
+  line-height: 1.5;
+}
+
+.terminal-output-top strong {
+  font-size: 1rem !important;
+}
+
+.terminal-command-line,
+.terminal-cursor-line {
+  font-size: 0.85rem !important;
+}
+
+.terminal-operation-status,
+.terminal-output-label,
+.terminal-command-list-heading,
+.devops-console-status {
+  font-size: 0.7rem !important;
+}
+
+.platform-status-item small {
+  font-size: 0.78rem !important;
+}
+
+.platform-status-item strong {
+  font-size: 1rem !important;
+}
+
+.devops-terminal-caption {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}

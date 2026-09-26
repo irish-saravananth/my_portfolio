@@ -9,6 +9,8 @@ import {
   Code2,
   BriefcaseBusiness,
   Terminal,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 import About from "./components/About";
@@ -62,6 +64,30 @@ const sections = [
 
 function App() {
   const [activeSection, setActiveSection] = useState("about");
+
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("portfolio-theme") || "dark";
+    } catch {
+      return "dark";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+
+    try {
+      localStorage.setItem("portfolio-theme", theme);
+    } catch {
+      // The theme still works if browser storage is unavailable.
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) =>
+      currentTheme === "dark" ? "light" : "dark"
+    );
+  };
 
   /*
    * ---------------------------------------------------------
@@ -294,6 +320,33 @@ function App() {
             >
               Contact
             </a>
+
+            {/* THEME TOGGLE - START */}
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+              title={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+            >
+              {theme === "dark" ? (
+                <Sun size={18} />
+              ) : (
+                <Moon size={18} />
+              )}
+              <span className="theme-toggle-label">
+                {theme === "dark" ? "Light" : "Dark"}
+              </span>
+            </button>
+            {/* THEME TOGGLE - END */}
 
             <a
               href={githubUrl}

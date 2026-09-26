@@ -384,3 +384,48 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   WORKFLOW LIGHT THEME FIXES
+   ========================================================= */
+
+:root[data-theme="light"] .flow-section .flow-card,
+:root[data-theme="light"] .flow-section .flow-card:not(.flow-card--active) {
+  background: #ffffff;
+  color: #17231c;
+  border-color: rgba(35, 55, 44, 0.22);
+  opacity: 1;
+  box-shadow: 0 8px 22px rgba(30, 50, 40, 0.06);
+}
+
+:root[data-theme="light"] .flow-section .flow-card:hover,
+:root[data-theme="light"] .flow-section .flow-card:focus-visible,
+:root[data-theme="light"] .flow-section .flow-card--active {
+  background: #f8fcf9;
+  border-color: rgba(22, 132, 71, 0.42);
+  box-shadow: 0 14px 30px rgba(30, 50, 40, 0.1);
+}
+
+/* Make the connecting line visible */
+:root[data-theme="light"] .flow-rail {
+  height: 2px;
+  background: rgba(22, 132, 71, 0.35);
+}
+
+:root[data-theme="light"] .flow-progress {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #168447,
+    rgba(22, 132, 71, 0.65)
+  );
+  box-shadow: none;
+}
+
+/* Workflow card text */
+:root[data-theme="light"] .flow-card p,
+:root[data-theme="light"] .flow-card .flow-card-tools,
+:root[data-theme="light"] .flow-execution-state,
+:root[data-theme="light"] .flow-status {
+  color: #52685b;
+}

@@ -474,3 +474,109 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   PROJECT LIGHT THEME AND TYPOGRAPHY FIXES
+   ========================================================= */
+
+:root[data-theme="light"] .interactive-project {
+  background: #ffffff;
+  color: #17231c;
+  border-color: rgba(35, 55, 44, 0.23);
+  box-shadow: 0 14px 38px rgba(30, 50, 40, 0.07);
+}
+
+:root[data-theme="light"] .interactive-project-description,
+:root[data-theme="light"] .project-overview-grid p,
+:root[data-theme="light"] .interactive-pipeline-step p,
+:root[data-theme="light"] .pipeline-inspection p,
+:root[data-theme="light"] .project-detail-copy {
+  color: #53685b !important;
+  font-size: 0.95rem !important;
+  line-height: 1.75 !important;
+}
+
+:root[data-theme="light"] .project-overview-grid > div,
+:root[data-theme="light"] .interactive-pipeline-step,
+:root[data-theme="light"] .pipeline-inspection {
+  background: #f8faf9;
+  border-color: rgba(35, 55, 44, 0.2);
+  color: #17231c;
+}
+
+:root[data-theme="light"] .interactive-pipeline-step--active,
+:root[data-theme="light"] .interactive-pipeline-step:hover,
+:root[data-theme="light"] .interactive-pipeline-step:focus-visible {
+  background: #eef8f1;
+  border-color: rgba(22, 132, 71, 0.42);
+}
+
+:root[data-theme="light"] .project-overview-grid h4,
+:root[data-theme="light"] .project-detail-header h4,
+:root[data-theme="light"] .interactive-pipeline-step h4 {
+  color: #17231c;
+  font-size: 1rem;
+}
+
+:root[data-theme="light"] .project-panel-kicker,
+:root[data-theme="light"] .project-detail-header span,
+:root[data-theme="light"] .interactive-pipeline-step > span,
+:root[data-theme="light"] .pipeline-inspection span,
+:root[data-theme="light"] .project-eyebrow,
+:root[data-theme="light"] .project-subtitle,
+:root[data-theme="light"] .interactive-project-metrics span {
+  color: #52685a;
+  font-size: 0.7rem;
+}
+
+:root[data-theme="light"] .project-panel-tab {
+  color: #52685a;
+  font-size: 0.72rem;
+}
+
+:root[data-theme="light"] .project-panel-tab--active {
+  color: #ffffff;
+}
+
+:root[data-theme="light"] .project-detail-tags span,
+:root[data-theme="light"] .interactive-project .project-tech span {
+  color: #465b4e;
+  border-color: rgba(35, 55, 44, 0.2);
+  background: rgba(22, 132, 71, 0.035);
+  font-size: 0.78rem;
+}
+
+/* Font sizes in both themes */
+.interactive-project-description {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.project-overview-grid p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.interactive-pipeline-step p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.pipeline-inspection p,
+.project-detail-copy {
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.interactive-project .project-tech span {
+  font-size: 0.78rem;
+}
+
+.project-overview-grid h4,
+.project-detail-header h4 {
+  font-size: 1rem;
+}
+
+.project-panel-tab {
+  font-size: 0.7rem;
+}

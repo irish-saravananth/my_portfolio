@@ -468,3 +468,45 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   SKILLS LIGHT THEME FIXES
+   ========================================================= */
+
+:root[data-theme="light"] .interactive-skill-card,
+:root[data-theme="light"] .interactive-skill-card:not(.interactive-skill-card--selected) {
+  background: #ffffff;
+  color: #17231c;
+  border-color: rgba(35, 55, 44, 0.22);
+  box-shadow: 0 8px 22px rgba(30, 50, 40, 0.055);
+}
+
+:root[data-theme="light"] .interactive-skill-card:hover,
+:root[data-theme="light"] .interactive-skill-card:focus-visible,
+:root[data-theme="light"] .interactive-skill-card--selected {
+  background: #f8fcf9;
+  border-color: rgba(22, 132, 71, 0.42);
+  box-shadow: 0 12px 28px rgba(30, 50, 40, 0.09);
+}
+
+:root[data-theme="light"] .interactive-skill-card > p,
+:root[data-theme="light"] .secondary-security-card > p,
+:root[data-theme="light"] .secondary-description {
+  color: #53685b !important;
+  font-size: 1rem !important;
+  line-height: 1.75 !important;
+}
+
+:root[data-theme="light"] .interactive-skill-tags span,
+:root[data-theme="light"] .secondary-security-tags span {
+  color: #465b4e;
+  border-color: rgba(35, 55, 44, 0.18);
+  background: rgba(22, 132, 71, 0.035);
+  font-size: 0.8rem !important;
+}
+
+:root[data-theme="light"] .interactive-skill-meta,
+:root[data-theme="light"] .interactive-skill-count,
+:root[data-theme="light"] .secondary-security-count {
+  color: #5d7465;
+}
