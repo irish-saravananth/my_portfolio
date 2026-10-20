@@ -580,3 +580,271 @@
 .project-panel-tab {
   font-size: 0.7rem;
 }
+/* =========================================================
+   SPRINT 6 — CASE STUDY CLARITY, EVIDENCE AND ACCESSIBILITY
+   ========================================================= */
+
+.sprint6-project-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 28px;
+}
+
+.sprint6-project-links a {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface-soft);
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.sprint6-project-links a:hover,
+.sprint6-project-links a:focus-visible {
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
+}
+
+.sprint6-project-links a > svg:first-child {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.sprint6-project-links a > svg:last-child {
+  flex: 0 0 auto;
+  margin-left: auto;
+  opacity: 0.75;
+}
+
+.sprint6-project-links a span {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.sprint6-project-links strong {
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.sprint6-project-links small {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.sprint6-evidence-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--muted);
+  background: var(--surface-soft);
+}
+
+.sprint6-evidence-note svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+.sprint6-evidence-note p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.sprint6-panel-intro {
+  margin: 0 0 22px;
+}
+
+.sprint6-panel-intro h4 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 1.12rem;
+  line-height: 1.45;
+}
+
+.sprint6-panel-intro p {
+  max-width: 850px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.sprint6-implementation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.sprint6-implementation-grid > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.sprint6-implementation-grid svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+.sprint6-implementation-grid h4 {
+  margin: 0 0 7px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.sprint6-implementation-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.sprint6-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sprint6-inline-link:hover,
+.sprint6-inline-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Keep the case study readable in both themes */
+.interactive-project-description {
+  max-width: 1000px;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.interactive-project-metrics strong {
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+}
+
+.interactive-project-metrics span {
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.project-panel-tab {
+  min-height: 42px;
+  padding: 10px 14px;
+  font-size: 0.76rem;
+}
+
+.project-overview-grid p,
+.pipeline-inspection p,
+.project-detail-copy {
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+.interactive-pipeline-step h4 {
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.interactive-pipeline-step p {
+  font-size: 0.76rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.interactive-pipeline-step > span,
+.pipeline-inspection span,
+.project-panel-kicker,
+.project-detail-header span {
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.project-detail-tags span,
+.interactive-project .project-tech span {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+:root[data-theme="light"] .sprint6-project-links a,
+:root[data-theme="light"] .sprint6-evidence-note,
+:root[data-theme="light"] .sprint6-implementation-grid > div {
+  color: #17231c;
+  background: #f7faf8;
+  border-color: rgba(35, 55, 44, 0.2);
+}
+
+:root[data-theme="light"] .sprint6-project-links small,
+:root[data-theme="light"] .sprint6-evidence-note p,
+:root[data-theme="light"] .sprint6-panel-intro p,
+:root[data-theme="light"] .sprint6-implementation-grid p {
+  color: #53685b;
+}
+
+:root[data-theme="light"] .sprint6-project-links strong,
+:root[data-theme="light"] .sprint6-panel-intro h4,
+:root[data-theme="light"] .sprint6-implementation-grid h4 {
+  color: #17231c;
+}
+
+:root[data-theme="light"] .project-panel-tab:focus-visible,
+:root[data-theme="light"] .interactive-pipeline-step:focus-visible,
+:root[data-theme="light"] .sprint6-project-links a:focus-visible,
+:root[data-theme="light"] .sprint6-inline-link:focus-visible {
+  outline: 3px solid #168447;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .sprint6-project-links,
+  .sprint6-implementation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sprint6-project-links a {
+    padding: 14px;
+  }
+
+  .sprint6-evidence-note {
+    padding: 12px;
+  }
+
+  .interactive-project-metrics span {
+    font-size: 0.76rem;
+  }
+
+  .project-panel-tab {
+    padding-inline: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprint6-project-links a {
+    transition: none;
+  }
+}
