@@ -6,6 +6,8 @@ import "./components/Sprint5Motion.css";
 import {
   ArrowDown,
   ArrowUpRight,
+  Download,
+  Mail,
   Code2,
   BriefcaseBusiness,
   Terminal,
@@ -386,11 +388,15 @@ function App() {
               <span>TH</span>
             </h1>
 
+            <h2 className="hero-role">
+              DevOps, DevSecOps &amp; Cloud Engineering
+            </h2>
+
             <p className="hero-description">
-              Building automated, secure and reliable
-              cloud-native platforms through CI/CD,
-              infrastructure as code, containerization
-              and continuous delivery.
+              Automating software delivery and building secure,
+              reliable cloud-native environments with CI/CD,
+              Infrastructure as Code, containers, Kubernetes
+              and continuous monitoring.
             </p>
 
             <div className="hero-actions">
@@ -410,11 +416,22 @@ function App() {
 
               <a
                 href="/resume.pdf"
-                target="_blank"
-                rel="noreferrer"
+                download="Saravanan_DevOps.pdf"
                 className="secondary-button"
               >
-                View Resume
+                <Download size={17} />
+                Download Resume
+              </a>
+
+              <a
+                href="#contact"
+                className="contact-button"
+                onClick={(event) =>
+                  handleSectionNavigation(event, "contact")
+                }
+              >
+                <Mail size={17} />
+                Contact Me
               </a>
             </div>
 

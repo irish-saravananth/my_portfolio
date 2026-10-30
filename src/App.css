@@ -2440,3 +2440,84 @@ body,
     font-size: 0.8rem;
   }
 }
+
+/* =========================================================
+   SPRINT 7 — RECRUITER-FOCUSED HERO
+   ========================================================= */
+
+.hero-role {
+  max-width: 720px;
+  margin: 28px 0 0;
+  color: var(--text);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+
+.hero-description {
+  max-width: 650px;
+  margin-top: 24px;
+}
+
+.hero-actions {
+  row-gap: 12px;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 0 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.contact-button:focus-visible,
+.hero-socials a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 450px) {
+  .hero-role {
+    margin-top: 24px;
+    font-size: clamp(1.15rem, 6vw, 1.5rem);
+    line-height: 1.4;
+  }
+
+  .hero-description {
+    margin-top: 24px;
+  }
+
+  .contact-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-button {
+    transition: none;
+  }
+}
